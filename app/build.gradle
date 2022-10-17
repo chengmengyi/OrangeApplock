@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -44,4 +45,6 @@ dependencies {
     implementation "com.airbnb.android:lottie:4.2.2"
     implementation project(':core')
     implementation("com.blankj:utilcodex:1.31.0")
+    implementation("com.google.firebase:firebase-config-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
 }

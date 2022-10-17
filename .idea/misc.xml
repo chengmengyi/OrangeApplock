@@ -3,7 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_ec6d25_8dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_fff_12dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_fff_28_28_0_0.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_fff_8dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/launch_progress.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/result_connect_time_color_selector.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/result_selector.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/server_home_progress.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/server_list_item_selector.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/server_list_item_text_color_selector.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24954710144927536" />
+        <entry key="app/src/main/res/layout/activity_result.xml" value="0.2056159420289855" />
+        <entry key="app/src/main/res/layout/activity_server_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_server_list.xml" value="0.22192028985507245" />
+        <entry key="app/src/main/res/layout/server_home_drawer.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/server_home_layout.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/server_list_item_layout.xml" value="0.22192028985507245" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2984375" />
       </map>
     </option>
   </component>

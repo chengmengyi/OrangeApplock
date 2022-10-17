@@ -3,15 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F0DA">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="183dp"
+        android:src="@drawable/main_top"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/main_logo"/>
+        <ProgressBar
+            android:id="@+id/launch_progress"
+            android:layout_width="120dp"
+            android:layout_height="6dp"
+            android:progress="0"
+            android:layout_marginTop="30dp"
+            android:progressDrawable="@drawable/launch_progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="222dp"
+        android:src="@drawable/main_bottom"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

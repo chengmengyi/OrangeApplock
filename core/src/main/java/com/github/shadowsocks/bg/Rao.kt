@@ -35,21 +35,17 @@ class Rao {
         )
 
         fun loadConfig(builder: VpnService.Builder,packageName:String) {
-            Log.e("qwer","=读取到的状态值=${getState()}===")
             when (getState()) {
                 0 -> {
-                    Log.e("qwer","==状态=0==")
                     runCatching { builder.addDisallowedApplication(packageName) }
                 }
                 1 -> {
                     blockListPackName.addAll(getBlockListPack(packageName))
-                    Log.e("qwer","=状态=1的黑名单列表：${Gson().toJson(blockListPackName)}")
                     for (pn in blockListPackName) {
                         runCatching { builder.addDisallowedApplication(pn) }
                     }
                 }
                 2 -> {
-                    Log.e("qwer","=状态=2的摆名单列表：${Gson().toJson(whiteList)}")
                     for (pn in whiteList) {
                         runCatching { builder.addAllowedApplication(pn) }
                     }
@@ -60,18 +56,18 @@ class Rao {
         private fun getState():Int{
             var state=0
             try {
-                state= JSONObject(getStateJson()).optInt("status")
+                state= JSONObject(getStateJson()).optInt("s")
             } catch (e: Exception) {
             }
             return state
         }
 
-        private fun getStateJson()= MMKV.mmkvWithID("space").decodeString("status")
+        private fun getStateJson()= MMKV.mmkvWithID("appLock").decodeString("appLock_rao")
 
         private fun getBlockListPack(packageName: String): ArraySet<String> {
             val list= arraySetOf<String>()
             try{
-                val jsonArray = JSONObject(getStateJson()).getJSONArray("pack")
+                val jsonArray = JSONObject(getStateJson()).getJSONArray("l")
                 for (index in 0 until jsonArray.length() ){
                     list.add(jsonArray.optString(index))
                 }
