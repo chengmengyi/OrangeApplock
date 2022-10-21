@@ -56,6 +56,9 @@ object AppListManager {
     fun removeLockedList(){
         lockedAppPackageList.clear()
         lockedList.clear()
+        installList.forEach {
+            it.lock=false
+        }
         updateLocalLockedApp()
     }
 
