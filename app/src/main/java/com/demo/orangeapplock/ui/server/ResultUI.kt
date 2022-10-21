@@ -10,6 +10,7 @@ class ResultUI:BaseUI() {
     override fun layoutId(): Int = R.layout.activity_result
 
     override fun initView() {
+        immersionBar.statusBarView(top_view).init()
         back.setOnClickListener { finish() }
 
         success=intent.getBooleanExtra("success",false)

@@ -8,7 +8,6 @@ import androidx.core.animation.doOnEnd
 import com.blankj.utilcode.util.ActivityUtils
 import com.demo.orangeapplock.R
 import com.demo.orangeapplock.base.BaseUI
-import com.demo.orangeapplock.ui.server.ServerHomeUI
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseUI() {
@@ -34,9 +33,9 @@ class MainActivity : BaseUI() {
     }
 
     private fun jumpToHomeUI(){
-        val activityExistsInStack = ActivityUtils.isActivityExistsInStack(ServerHomeUI::class.java)
+        val activityExistsInStack = ActivityUtils.isActivityExistsInStack(HomeUI::class.java)
         if (!activityExistsInStack){
-            startActivity(Intent(this, ServerHomeUI::class.java))
+            startActivity(Intent(this, HomeUI::class.java))
         }
         finish()
     }

@@ -10,6 +10,7 @@
     android:gravity="center_vertical"
     android:background="@drawable/server_list_item_selector">
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_server_icon"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:src="@drawable/fast"/>

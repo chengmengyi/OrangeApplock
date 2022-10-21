@@ -3,6 +3,8 @@ package com.demo.orangeapplock.local
 import com.demo.orangeapplock.bean.ServerInfoBean
 
 object LocalManager {
+    const val appLockEmail=""
+    const val appLockPolicy=""
 
     const val appLockLocalRao="""{
     "s":1,
@@ -37,19 +39,19 @@ object LocalManager {
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/3419835294",
-            "type": "cp",
+            "type": "cha",
             "sort": 1
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/3419835294A",
-            "type": "kp",
+            "type": "kai",
             "sort": 2
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/3419835294AA",
-            "type": "kp",
+            "type": "kai",
             "sort": 3
         }
     ],
@@ -57,19 +59,19 @@ object LocalManager {
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/2247696110",
-            "type": "ys",
+            "type": "yuan",
             "sort": 2
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/2247696110AAA",
-            "type": "ys",
+            "type": "yuan",
             "sort": 1
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/2247696110AA",
-            "type": "ys",
+            "type": "yuan",
             "sort": 3
         }
     ],
@@ -77,19 +79,19 @@ object LocalManager {
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/2247696110A",
-            "type": "ys",
+            "type": "yuan",
             "sort": 2
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/2247696110",
-            "type": "ys",
+            "type": "yuan",
             "sort": 1
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/2247696110AA",
-            "type": "ys",
+            "type": "yuan",
             "sort": 3
         }
     ],
@@ -97,19 +99,19 @@ object LocalManager {
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/8691691433A",
-            "type": "cp",
+            "type": "cha",
             "sort": 2
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/1033173712",
-            "type": "cp",
+            "type": "cha",
             "sort": 1
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/1033173712AA",
-            "type": "cp",
+            "type": "cha",
             "sort": 3
         }
     ],
@@ -117,19 +119,19 @@ object LocalManager {
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/1033173712A",
-            "type": "cp",
+            "type": "cha",
             "sort": 2
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/8691691433",
-            "type": "cp",
+            "type": "cha",
             "sort": 1
         },
         {
             "source": "admob",
             "id": "ca-app-pub-3940256099942544/1033173712AA",
-            "type": "cp",
+            "type": "cha",
             "sort": 3
         }
     ]

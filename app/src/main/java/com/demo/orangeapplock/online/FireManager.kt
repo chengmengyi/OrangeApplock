@@ -71,6 +71,11 @@ object FireManager {
         }
     }
 
+    fun getLocalAdStr():String{
+        val appLockAd = MMKV.defaultMMKV().decodeString("appLock_ad")?:""
+        return if (appLockAd.isEmpty()) LocalManager.appLockLocalAd else appLockAd
+    }
+
     private fun writeRao(json: String){
         MMKV.mmkvWithID("appLock").encode("appLock_rao",json)
     }

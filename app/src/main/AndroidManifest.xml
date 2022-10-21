@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.demo.orangeapplock">
+
+    <uses-permission android:name="android.permission.REAL_GET_TASKS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions"/>
+
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".MyApp"
@@ -26,6 +41,24 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.server.ResultUI"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.HomeUI"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.applock.EnterPwdUI"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.applock.AppLockHomeUI"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SetUI"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.PolicyUI"
+            android:screenOrientation="portrait"/>
+
+        <service android:name=".service.AppLockServers"
+            android:exported="true">
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_id" />
     </application>
 
 </manifest>
