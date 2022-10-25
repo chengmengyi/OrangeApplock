@@ -12,7 +12,11 @@ object AdShowClickManager {
     var currentShowNum=0
 
     var openShowing=false
+    var lockAdShowNum=-1
 
+    fun addLockShowNum(){
+        lockAdShowNum++
+    }
 
     fun readLocalShowClickNum(){
         currentClickNum=MMKV.defaultMMKV().decodeInt(createKey("click"),0)

@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils
+import com.demo.orangeapplock.admob.AdShowClickManager
 import com.demo.orangeapplock.ui.HomeUI
 import com.demo.orangeapplock.ui.MainActivity
 import com.demo.orangeapplock.ui.server.ServerHomeUI
@@ -36,6 +37,7 @@ object ActivityCallback {
             if (pages==1){
                 appFront=true
                 if (reload){
+                    AdShowClickManager.readLocalShowClickNum()
                     if (ActivityUtils.isActivityExistsInStack(HomeUI::class.java)){
                         activity.startActivity(Intent(activity, MainActivity::class.java))
                     }

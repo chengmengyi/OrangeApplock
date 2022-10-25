@@ -20,7 +20,12 @@ class ShowLockAdManager(
 ) {
 
     fun showLockAd(){
+        AdShowClickManager.addLockShowNum()
         val adByType = LoadAdManager.getAdByType(type)
+        if ((AdShowClickManager.lockAdShowNum%5)!=0){
+            showResult.invoke()
+            return
+        }
         if (null==adByType||AdShowClickManager.checkLimit()){
             showResult.invoke()
         }else{
