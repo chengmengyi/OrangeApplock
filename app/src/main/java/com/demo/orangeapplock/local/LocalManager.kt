@@ -75,6 +75,46 @@ object LocalManager {
             "sort": 3
         }
     ],
+    "app_lock_home": [
+        {
+            "source": "admob",
+            "id": "ca-app-pub-3940256099942544/2247696110",
+            "type": "yuan",
+            "sort": 2
+        },
+        {
+            "source": "admob",
+            "id": "ca-app-pub-3940256099942544/2247696110AAA",
+            "type": "yuan",
+            "sort": 1
+        },
+        {
+            "source": "admob",
+            "id": "ca-app-pub-3940256099942544/2247696110AA",
+            "type": "yuan",
+            "sort": 3
+        }
+    ],
+      "lock": [
+        {
+            "source": "admob",
+            "id": "ca-app-pub-3940256099942544/8691691433A",
+            "type": "cha",
+            "sort": 2
+        },
+        {
+            "source": "admob",
+            "id": "ca-app-pub-3940256099942544/1033173712",
+            "type": "cha",
+            "sort": 1
+        },
+        {
+            "source": "admob",
+            "id": "ca-app-pub-3940256099942544/1033173712AA",
+            "type": "cha",
+            "sort": 3
+        }
+    ],
     "result": [
         {
             "source": "admob",

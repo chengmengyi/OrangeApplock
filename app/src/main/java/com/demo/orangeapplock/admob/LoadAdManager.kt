@@ -33,6 +33,7 @@ object LoadAdManager {
         val configAdList = getConfigAdListByType(type)
         if (configAdList.isNotEmpty()){
             appLockLoading.add(type)
+            loadAd(type,configAdList.iterator(),isOpenAd)
         }
     }
 
@@ -116,7 +117,7 @@ object LoadAdManager {
                 .withNativeAdOptions(
                     NativeAdOptions.Builder()
                         .setAdChoicesPlacement(
-                            NativeAdOptions.ADCHOICES_TOP_LEFT
+                            NativeAdOptions.ADCHOICES_BOTTOM_LEFT
                         )
                         .build()
                 )
@@ -173,4 +174,6 @@ object LoadAdManager {
     fun removeAdByType(type: String){
         appLockAdRes.remove(type)
     }
+
+    fun getAdByType(type: String)= appLockAdRes[type]?.ad
 }

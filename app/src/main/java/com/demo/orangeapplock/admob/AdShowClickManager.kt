@@ -11,6 +11,8 @@ object AdShowClickManager {
     var currentClickNum=0
     var currentShowNum=0
 
+    var openShowing=false
+
 
     fun readLocalShowClickNum(){
         currentClickNum=MMKV.defaultMMKV().decodeInt(createKey("click"),0)

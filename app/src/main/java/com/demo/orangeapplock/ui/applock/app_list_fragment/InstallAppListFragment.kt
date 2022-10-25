@@ -11,6 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.orangeapplock.R
 import com.demo.orangeapplock.adapter.AppListAdapter
+import com.demo.orangeapplock.admob.AdType
+import com.demo.orangeapplock.admob.ShowLockAdManager
+import com.demo.orangeapplock.admob.ShowOpenAdManager
+import com.demo.orangeapplock.bean.AppInfo
 import com.demo.orangeapplock.ui.dialog.OverlayPermissionDialog
 import com.demo.orangeapplock.util.AppListManager
 import com.demo.orangeapplock.util.checkFloatPermission
@@ -20,6 +24,12 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class InstallAppListFragment:Fragment() {
+    private var lock=true
+    private var selectAppInfo:AppInfo?=null
+    private val showAd by lazy { ShowLockAdManager(AdType.LOCK_AD,requireActivity()){
+        lockApp()
+    } }
+
     private lateinit var installListAdapter:AppListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,22 +45,31 @@ class InstallAppListFragment:Fragment() {
 
     private fun setInstallAdapter(){
         installListAdapter= AppListAdapter(requireContext(),AppListManager.installList){
-            if (it.lock){
-                it.lock=false
-                AppListManager.deleteLockApp(it)
+            if (checkFloatPermission(requireContext())) {
+                lock=!it.lock
+                selectAppInfo=it
+                showAd.showLockAd()
             }else{
-                if (checkFloatPermission(requireContext())) {
-                    it.lock=true
-                    AppListManager.addLockApp(it)
-                }else{
-                    requestPermissionDialog()
-                }
+                requestPermissionDialog()
             }
-            EventBus.getDefault().post("")
         }
         rv_app_list.apply {
             layoutManager=LinearLayoutManager(requireContext())
             adapter=installListAdapter
+        }
+    }
+
+    private fun lockApp(){
+        selectAppInfo?.let {
+            if (lock){
+                it.lock=true
+                AppListManager.addLockApp(it)
+            }else{
+                it.lock=false
+                AppListManager.deleteLockApp(it)
+            }
+            installListAdapter.notifyDataSetChanged()
+            EventBus.getDefault().post("")
         }
     }
 

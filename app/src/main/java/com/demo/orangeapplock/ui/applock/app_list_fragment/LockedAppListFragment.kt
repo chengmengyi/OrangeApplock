@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.orangeapplock.R
 import com.demo.orangeapplock.adapter.AppListAdapter
+import com.demo.orangeapplock.admob.AdType
+import com.demo.orangeapplock.admob.ShowLockAdManager
+import com.demo.orangeapplock.bean.AppInfo
 import com.demo.orangeapplock.util.AppListManager
 import com.demo.orangeapplock.util.show
 import kotlinx.android.synthetic.main.layout_app_list.*
@@ -21,6 +24,10 @@ import org.greenrobot.eventbus.Subscribe
 
 class LockedAppListFragment:Fragment() {
     private lateinit var lockedListAdapter:AppListAdapter
+    private var selectAppInfo: AppInfo?=null
+    private val showAd by lazy { ShowLockAdManager(AdType.LOCK_AD,requireActivity()){
+        unLockApp()
+    } }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.layout_app_list,container,false)
@@ -35,13 +42,20 @@ class LockedAppListFragment:Fragment() {
 
     private fun setInstallAdapter(){
         lockedListAdapter= AppListAdapter(requireContext(),AppListManager.lockedList){
-            it.lock=false
-            AppListManager.deleteLockApp(it)
-            EventBus.getDefault().post("")
+            selectAppInfo=it
+            showAd.showLockAd()
         }
         rv_app_list.apply {
             layoutManager=LinearLayoutManager(requireContext())
             adapter=lockedListAdapter
+        }
+    }
+
+    private fun unLockApp(){
+        selectAppInfo?.let {
+            it.lock=false
+            AppListManager.deleteLockApp(it)
+            EventBus.getDefault().post("")
         }
     }
 

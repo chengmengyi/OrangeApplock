@@ -5,7 +5,10 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils
+import com.demo.orangeapplock.ui.HomeUI
+import com.demo.orangeapplock.ui.MainActivity
 import com.demo.orangeapplock.ui.server.ServerHomeUI
+import com.google.android.gms.ads.AdActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -33,8 +36,8 @@ object ActivityCallback {
             if (pages==1){
                 appFront=true
                 if (reload){
-                    if (ActivityUtils.isActivityExistsInStack(ServerHomeUI::class.java)){
-                        activity.startActivity(Intent(activity, ServerHomeUI::class.java))
+                    if (ActivityUtils.isActivityExistsInStack(HomeUI::class.java)){
+                        activity.startActivity(Intent(activity, MainActivity::class.java))
                     }
                 }
                 reload=false
@@ -53,8 +56,8 @@ object ActivityCallback {
                 job= GlobalScope.launch {
                     delay(3000L)
                     reload=true
-//                    ActivityUtils.finishActivity(Main1011Page::class.java)
-//                    ActivityUtils.finishActivity(AdActivity::class.java)
+                    ActivityUtils.finishActivity(MainActivity::class.java)
+                    ActivityUtils.finishActivity(AdActivity::class.java)
                 }
             }
         }

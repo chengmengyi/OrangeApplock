@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ad_tag.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/applock_tab_color_selector.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_cancel_24dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_ec6d25_20dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_ec6d25_24dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_ec6d25_8dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_fef1be_12dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_ffb87c_8dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_fff_12dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_fff_16dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_fff_28_28_0_0.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_fff_8dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_ffffd_16dp.xml" value="0.29384615384615387" />
@@ -31,7 +35,9 @@
         <entry key="app/src/main/res/layout/activity_set.xml" value="0.2539667413131615" />
         <entry key="app/src/main/res/layout/layout_app_list.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/layout_app_list_item.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/layout_applock_home_native_ad.xml" value="0.20516304347826086" />
         <entry key="app/src/main/res/layout/layout_entered_pwd_item.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/layout_home_native_ad.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_keyboard_item.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/layout_pwd_fail_num.xml" value="0.22509057971014493" />
         <entry key="app/src/main/res/layout/layout_request_overlay_permission.xml" value="0.21829710144927536" />

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
 
 abstract class BaseUI:AppCompatActivity() {
+    var onResume=false
     protected lateinit var immersionBar: ImmersionBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,5 +33,20 @@ abstract class BaseUI:AppCompatActivity() {
         metrics.density = td
         metrics.scaledDensity = td
         metrics.densityDpi = dpi
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onResume=true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        onResume=false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        onResume=false
     }
 }
