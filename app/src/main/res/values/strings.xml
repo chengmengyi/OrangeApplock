@@ -3,4 +3,6 @@
     <string name="admob_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="tips">To use the application lock function, you need to obtain the permission of "View Application Usage"</string>
     <string name="overlay_tips">To use the application locking function, you need to obtain the permission of "Floating Window"</string>
+
+    <string name="facebook_app_id">853522012475061</string>
 </resources>
