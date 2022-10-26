@@ -5,6 +5,10 @@ import android.content.Intent
 import android.net.VpnService
 import android.view.animation.LinearInterpolator
 import com.demo.orangeapplock.R
+import com.demo.orangeapplock.admob.AdType
+import com.demo.orangeapplock.admob.LoadAdManager
+import com.demo.orangeapplock.admob.ShowNativeAdManager
+import com.demo.orangeapplock.admob.ShowOpenAdManager
 import com.demo.orangeapplock.base.BaseUI
 import com.demo.orangeapplock.bean.ServerInfoBean
 import com.demo.orangeapplock.server.ConnectTimeManager
@@ -20,9 +24,11 @@ import kotlinx.android.synthetic.main.server_home_layout.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
+class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
+    ConnectTimeManager.IConnectTimeListener {
     private var hasPermission=false
     private var isConnect=false
+    private var click=true
     private val sc= ShadowsocksConnection(true)
     private var progressAnimator:ValueAnimator?=null
 
@@ -31,16 +37,23 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
             hasPermission = false
             setStateConnecting()
         } else {
-            ServerManager.state = BaseService.State.Idle
+            click=true
             showToast("Connected fail")
         }
     }
 
-    override fun layoutId(): Int = R.layout.activity_server_home
+    private val showConnectAd by lazy { ShowOpenAdManager(AdType.CONNECT_AD,this){
+        jumpResultUI()
+    } }
+
+    private val showServerHomeAd by lazy { ShowNativeAdManager(AdType.SERVER_HOME_AD,this) }
+
+    override fun layoutId(): Int = R.layout.server_home_layout
 
     override fun initView() {
         immersionBar.statusBarView(top_view).init()
         sc.connect(this,this)
+        ConnectTimeManager.addListener(this)
         setOnClickListener()
     }
 
@@ -49,21 +62,25 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
             startActivityForResult(Intent(this,ServerListUI::class.java),1014)
         }
         tv_connect_status.setOnClickListener {
-            doLogic()
+            if (click){
+                click=false
+                doLogic()
+            }
         }
+        back.setOnClickListener { finish() }
     }
 
     private fun doLogic(){
-        if(ServerManager.state==BaseService.State.Connecting||ServerManager.state==BaseService.State.Stopping){
-            return
-        }
+        LoadAdManager.checkCanLoad(AdType.CONNECT_AD)
+        LoadAdManager.checkCanLoad(AdType.RESULT_AD)
+
         if (ServerManager.state==BaseService.State.Connected){
             setStateStopping()
         }else{
             setServerInfoUI()
             if (checkNetworkStatus()==1){
                 showNoNetworkDialog()
-                ServerManager.state = BaseService.State.Idle
+                click=true
                 return
             }
             if (VpnService.prepare(this) != null) {
@@ -95,7 +112,8 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
             duration=10000L
             interpolator = LinearInterpolator()
             addUpdateListener {
-                val progress = it.animatedValue as Int
+                val p=it.animatedValue as Int
+                val progress = if (connect) p else 100-p
                 connect_progress.progress = progress
                 val duation = (10 * (progress / 100.0F)).toInt()
                 if (duation==3){
@@ -106,7 +124,12 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
                     }
                 }
                 if (duation in 2..9){
-
+                    if (connectSuccess()){
+                        showConnectAd.showOpenAd { to->
+                            stopUpdateProgress()
+                            connectServerFinish(toResult = to)
+                        }
+                    }
                 }else if (duation>=10){
                     stopUpdateProgress()
                     connectServerFinish()
@@ -120,21 +143,19 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
         setProgressPercent(0)
         if (connectSuccess()){
             if (isConnect){
-                ServerManager.state=BaseService.State.Connected
                 setConnectText("Disconnect")
             }else{
-                ServerManager.state=BaseService.State.Stopped
                 setServerInfoUI()
-                setConnectText("Connect")
+                setConnectText("Connect", s = "if")
             }
             if (toResult){
                 jumpResultUI()
             }
         }else{
-            ServerManager.state=BaseService.State.Stopped
-            setConnectText("Connect")
+            setConnectText("Connect", s = "else")
             showToast(if (isConnect) "Connect Fail" else "Disconnect Fail")
         }
+        click=true
     }
 
     private fun connectSuccess()=if (isConnect) ServerManager.state==BaseService.State.Connected else ServerManager.state==BaseService.State.Stopped
@@ -148,7 +169,7 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
             }
             Core.startService()
         }
-        ConnectTimeManager.startTime()
+        ConnectTimeManager.t=0L
     }
 
     private fun jumpResultUI(){
@@ -175,8 +196,15 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
         iv_country.setImageResource(getServerIcon(ServerManager.serverInfoBean.country))
     }
 
-    private fun setConnectText(text:String){
+    private fun setConnectText(text:String,s:String=""){
         tv_connect_status.text=text
+        if(text=="Connect"){
+            tv_connect_time.text="00:00:00"
+        }
+
+        if(s.isNotEmpty()){
+            printAppLock("kkkk=${s}=")
+        }
     }
 
     private fun setProgressPercent(progress:Int){
@@ -190,8 +218,9 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
         }
         if (state==BaseService.State.Stopped){
             ConnectTimeManager.endTime()
-            if (state!=BaseService.State.Connecting&&state!=BaseService.State.Stopping){
-                setConnectText("Connect")
+            if (click){
+                printAppLock("=kkkk=$msg=")
+                setConnectText("Connect", s = "Stopped")
             }
         }
     }
@@ -205,18 +234,39 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback {
         }
     }
 
+    override fun onBinderDied() {
+        sc.disconnect(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showServerHomeAd.checkHasAd()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode==1014){
             when(data?.getStringExtra("result")){
                 "duankai"->{
-                    setStateStopping()
+                    doLogic()
                 }
                 "lianjie"->{
                     setServerInfoUI()
-                    setStateConnecting()
+                    doLogic()
                 }
             }
         }
+    }
+
+    override fun connectTime(t: String) {
+        tv_connect_time.text=t
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showServerHomeAd.endCheck()
+        stopUpdateProgress()
+        onBinderDied()
+        ConnectTimeManager.removeListener(this)
     }
 }

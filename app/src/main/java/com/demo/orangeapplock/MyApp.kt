@@ -4,6 +4,7 @@ import android.app.Application
 import com.demo.orangeapplock.admob.AdShowClickManager
 import com.demo.orangeapplock.online.FireManager
 import com.demo.orangeapplock.tba.TbaUtil
+import com.demo.orangeapplock.ui.HomeUI
 import com.demo.orangeapplock.ui.server.ServerHomeUI
 import com.demo.orangeapplock.util.ActivityCallback
 import com.demo.orangeapplock.util.AppLockPwdManager
@@ -17,7 +18,7 @@ class MyApp:Application(){
     override fun onCreate() {
         super.onCreate()
         appLockApp=this
-        Core.init(this,ServerHomeUI::class)
+        Core.init(this,HomeUI::class)
         MMKV.initialize(this)
         if (!packageName.equals(processName(this))){
             return

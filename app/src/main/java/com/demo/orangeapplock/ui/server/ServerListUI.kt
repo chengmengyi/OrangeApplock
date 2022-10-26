@@ -5,6 +5,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.orangeapplock.R
 import com.demo.orangeapplock.adapter.ServerListAdapter
+import com.demo.orangeapplock.admob.AdType
+import com.demo.orangeapplock.admob.LoadAdManager
+import com.demo.orangeapplock.admob.ShowOpenAdManager
 import com.demo.orangeapplock.base.BaseUI
 import com.demo.orangeapplock.bean.ServerInfoBean
 import com.demo.orangeapplock.server.ServerManager
@@ -12,9 +15,12 @@ import com.github.shadowsocks.bg.BaseService
 import kotlinx.android.synthetic.main.activity_server_list.*
 
 class ServerListUI:BaseUI(){
+    private val showAd by lazy { ShowOpenAdManager(AdType.back_AD,this){finish()} }
+
     override fun layoutId(): Int = R.layout.activity_server_list
 
     override fun initView() {
+        LoadAdManager.checkCanLoad(AdType.back_AD)
         immersionBar.statusBarView(top_view).init()
         rv_server_list.apply {
             layoutManager=LinearLayoutManager(this@ServerListUI)
@@ -23,7 +29,7 @@ class ServerListUI:BaseUI(){
             }
         }
 
-        back.setOnClickListener { finish() }
+        back.setOnClickListener { onBackPressed() }
     }
 
     private fun chooseServer(serverInfoBean: ServerInfoBean){
@@ -51,5 +57,16 @@ class ServerListUI:BaseUI(){
         setResult(1014,Intent().apply {
             putExtra("result",result)
         })
+        finish()
+    }
+
+    override fun onBackPressed() {
+        if(LoadAdManager.getAdByType(AdType.back_AD)!=null){
+            showAd.showOpenAd {
+                finish()
+            }
+        }else{
+            finish()
+        }
     }
 }

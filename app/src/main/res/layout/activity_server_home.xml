@@ -5,5 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/server_home_layout"/>
-    <include layout="@layout/server_home_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

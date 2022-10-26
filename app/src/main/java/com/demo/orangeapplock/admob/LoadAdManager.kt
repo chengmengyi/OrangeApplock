@@ -34,6 +34,8 @@ object LoadAdManager {
         if (configAdList.isNotEmpty()){
             appLockLoading.add(type)
             loadAd(type,configAdList.iterator(),isOpenAd)
+        }else{
+            printAppLock("$type list empty")
         }
     }
 
@@ -166,7 +168,7 @@ object LoadAdManager {
                 )
             }
         }catch (e:Exception){
-
+            printAppLock("==$type=${e.message}=");
         }
         return list.filter { it.source_applock == "admob" }.sortedByDescending { it.sort_applock }
     }

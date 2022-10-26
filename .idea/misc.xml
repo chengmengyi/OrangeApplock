@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/ad_tag.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/applock_tab_color_selector.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/bg_171c35_8dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_cancel_24dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_ec6d25_20dp.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/bg_ec6d25_24dp.xml" value="0.29384615384615387" />
@@ -43,6 +44,7 @@
         <entry key="app/src/main/res/layout/layout_request_overlay_permission.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/layout_request_permission.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/layout_reset_pwd.xml" value="0.22509057971014493" />
+        <entry key="app/src/main/res/layout/layout_result_native_ad.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_set_pwd_success.xml" value="0.22509057971014493" />
         <entry key="app/src/main/res/layout/server_home_drawer.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/server_home_layout.xml" value="0.22554347826086957" />

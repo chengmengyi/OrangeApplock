@@ -8,6 +8,7 @@ import com.demo.orangeapplock.admob.ShowNativeAdManager
 import com.demo.orangeapplock.base.BaseUI
 import com.demo.orangeapplock.ui.applock.EnterPwdUI
 import com.demo.orangeapplock.ui.dialog.PermissionDialog
+import com.demo.orangeapplock.ui.server.ServerHomeUI
 import com.demo.orangeapplock.util.ActivityCallback
 import com.demo.orangeapplock.util.LockUtil
 import com.demo.orangeapplock.util.checkFloatPermission
@@ -39,6 +40,10 @@ class HomeUI:BaseUI() {
             } else {
                 jumpToEnterPwdUI()
             }
+        }
+
+        view_vpn.setOnClickListener {
+            startActivity(Intent(this,ServerHomeUI::class.java))
         }
     }
 

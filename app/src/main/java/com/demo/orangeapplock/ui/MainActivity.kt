@@ -31,6 +31,9 @@ class MainActivity : BaseUI() {
         LoadAdManager.checkCanLoad(AdType.HOME_AD)
         LoadAdManager.checkCanLoad(AdType.APP_LOCK_HOME_AD)
         LoadAdManager.checkCanLoad(AdType.LOCK_AD)
+        LoadAdManager.checkCanLoad(AdType.CONNECT_AD)
+        LoadAdManager.checkCanLoad(AdType.RESULT_AD)
+        LoadAdManager.checkCanLoad(AdType.SERVER_HOME_AD)
     }
     
     private fun startAnimator(){
