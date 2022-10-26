@@ -24,7 +24,10 @@ object ConnectHelper :ShadowsocksConnection.Callback{
         sc.connect(base1011Page,this)
     }
 
+    var isConnecting = false
     fun connect(){
+        if (isConnecting) return
+        isConnecting = true
         baseServiceState = BaseService.State.Connecting
         GlobalScope.launch(Dispatchers.IO) {
             if (server1011Entity.isRandomServer()){
