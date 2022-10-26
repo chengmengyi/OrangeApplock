@@ -3,7 +3,6 @@ package com.demo.orangeapplock.online
 import com.demo.orangeapplock.admob.AdShowClickManager
 import com.demo.orangeapplock.bean.ServerInfoBean
 import com.demo.orangeapplock.local.LocalManager
-import com.demo.orangeapplock.server.ServerManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.tencent.mmkv.MMKV
@@ -15,8 +14,7 @@ object FireManager {
 
     fun readOnlineConfig(){
         writeRao(LocalManager.appLockLocalRao)
-        ServerManager.createOrUpdateProfile(LocalManager.appLockLocalServerList)
-
+        writeServer(LocalManager.appLockLocalServerList)
 //        val remoteConfig = Firebase.remoteConfig
 //        remoteConfig.fetchAndActivate().addOnCompleteListener {
 //            if (it.isSuccessful){
@@ -27,7 +25,14 @@ object FireManager {
 //            }
 //        }
     }
-    
+
+    private fun writeServer(list:List<ServerInfoBean>){
+        list.forEach {
+            it.writeProfileId()
+        }
+    }
+
+
     private fun readServerConfig(json:String){
         try {
             val jsonArray = JSONObject(json).getJSONArray("appLock_server")
@@ -43,7 +48,7 @@ object FireManager {
                 )
                 appLockServerList.add(serverInfoBean)
             }
-            ServerManager.createOrUpdateProfile(appLockServerList)
+            writeServer(appLockServerList)
         }catch (e:Exception){
 
         }

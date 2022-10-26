@@ -10,8 +10,7 @@ import com.demo.orangeapplock.admob.LoadAdManager
 import com.demo.orangeapplock.admob.ShowOpenAdManager
 import com.demo.orangeapplock.base.BaseUI
 import com.demo.orangeapplock.bean.ServerInfoBean
-import com.demo.orangeapplock.server.ServerManager
-import com.github.shadowsocks.bg.BaseService
+import com.demo.orangeapplock.server.ConnectHelper
 import kotlinx.android.synthetic.main.activity_server_list.*
 
 class ServerListUI:BaseUI(){
@@ -33,8 +32,8 @@ class ServerListUI:BaseUI(){
     }
 
     private fun chooseServer(serverInfoBean: ServerInfoBean){
-        val current = ServerManager.serverInfoBean
-        val connected = ServerManager.state == BaseService.State.Connected
+        val current = ConnectHelper.server1011Entity
+        val connected = ConnectHelper.isConnected1011()
         if(connected&&current.host==serverInfoBean.host){
             AlertDialog.Builder(this).apply {
                 setMessage("You are currently connected and need to disconnect before manually connecting to the server.")
@@ -53,7 +52,7 @@ class ServerListUI:BaseUI(){
         }
     }
     private fun finishUI(serverInfoBean: ServerInfoBean,result:String){
-        ServerManager.serverInfoBean=serverInfoBean
+        ConnectHelper.server1011Entity=serverInfoBean
         setResult(1014,Intent().apply {
             putExtra("result",result)
         })

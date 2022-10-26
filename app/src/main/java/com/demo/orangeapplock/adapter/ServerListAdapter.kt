@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.orangeapplock.R
 import com.demo.orangeapplock.bean.ServerInfoBean
-import com.demo.orangeapplock.server.ServerManager
+import com.demo.orangeapplock.server.ConnectHelper
+import com.demo.orangeapplock.server.ServerInfoHelper
 import com.demo.orangeapplock.util.getServerIcon
 import kotlinx.android.synthetic.main.server_list_item_layout.view.*
 
@@ -18,7 +19,7 @@ class ServerListAdapter(
     private val list= arrayListOf<ServerInfoBean>()
     init {
         list.add(ServerInfoBean())
-        list.addAll(ServerManager.getServerList())
+        list.addAll(ServerInfoHelper.get1011ServerList())
     }
 
     inner class ServerListView(view:View):RecyclerView.ViewHolder(view){
@@ -37,7 +38,7 @@ class ServerListAdapter(
         with(holder.itemView){
             val serverInfoBean = list[position]
             tv_server_country.text=serverInfoBean.country
-            val selected = ServerManager.serverInfoBean.host == serverInfoBean.host
+            val selected = ConnectHelper.server1011Entity.host == serverInfoBean.host
             item_layout.isSelected=selected
             tv_server_country.isSelected=selected
             iv_server_icon.setImageResource(getServerIcon(serverInfoBean.country))

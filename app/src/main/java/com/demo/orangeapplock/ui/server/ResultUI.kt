@@ -4,10 +4,9 @@ import com.demo.orangeapplock.R
 import com.demo.orangeapplock.admob.AdType
 import com.demo.orangeapplock.admob.ShowNativeAdManager
 import com.demo.orangeapplock.base.BaseUI
-import com.demo.orangeapplock.server.ConnectTimeManager
 import kotlinx.android.synthetic.main.activity_result.*
 
-class ResultUI:BaseUI(), ConnectTimeManager.IConnectTimeListener {
+class ResultUI:BaseUI() {
     private var success=false
     private val showAd by lazy {  ShowNativeAdManager(AdType.RESULT_AD,this) }
 
@@ -21,16 +20,16 @@ class ResultUI:BaseUI(), ConnectTimeManager.IConnectTimeListener {
         iv_result_bg.isSelected=success
         tv_result_connect_time.isSelected=success
         tv_title.text=if (success)"Connect success" else "Disconnected"
-        if (success){
-            ConnectTimeManager.addListener(this)
-        }else{
-            tv_result_connect_time.text=ConnectTimeManager.getCurrentTimeStr()
-        }
+//        if (success){
+//            ConnectTimeManager.addListener(this)
+//        }else{
+//            tv_result_connect_time.text=ConnectTimeManager.getCurrentTimeStr()
+//        }
     }
 
-    override fun connectTime(t: String) {
-        tv_result_connect_time.text=t
-    }
+//    override fun connectTime(t: String) {
+//        tv_result_connect_time.text=t
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -40,8 +39,8 @@ class ResultUI:BaseUI(), ConnectTimeManager.IConnectTimeListener {
     override fun onDestroy() {
         super.onDestroy()
         showAd.endCheck()
-        if (success){
-            ConnectTimeManager.removeListener(this)
-        }
+//        if (success){
+//            ConnectTimeManager.removeListener(this)
+//        }
     }
 }
