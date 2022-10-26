@@ -3,7 +3,7 @@ package com.demo.orangeapplock.local
 import com.demo.orangeapplock.bean.ServerInfoBean
 
 object LocalManager {
-    const val appLockEmail=""
+    const val appLockEmail="rubengjkerjw@gmail.com"
     const val appLockPolicy=""
 
     const val appLockLocalRao="""{

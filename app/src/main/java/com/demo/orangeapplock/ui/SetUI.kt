@@ -10,6 +10,9 @@ import com.demo.orangeapplock.util.showToast
 import kotlinx.android.synthetic.main.activity_set.*
 import java.lang.Exception
 
+
+
+
 class SetUI:BaseUI() {
     override fun layoutId(): Int = R.layout.activity_set
 
@@ -19,9 +22,8 @@ class SetUI:BaseUI() {
 
         ll_contact.setOnClickListener {
             try {
-                val intent = Intent(Intent.ACTION_SENDTO)
-                intent.data= Uri.parse("mailto:")
-                intent.putExtra(Intent.EXTRA_EMAIL, LocalManager.appLockEmail)
+                val uri = Uri.parse("mailto:${LocalManager.appLockEmail}")
+                val intent = Intent(Intent.ACTION_SENDTO, uri)
                 startActivity(intent)
             }catch (e: Exception){
                 showToast("Contact us by email：${LocalManager.appLockEmail}")
