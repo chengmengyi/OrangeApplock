@@ -5,12 +5,16 @@ import android.content.Intent
 import android.view.KeyEvent
 import android.view.animation.LinearInterpolator
 import androidx.core.animation.doOnEnd
+import com.android.installreferrer.api.InstallReferrerClient
+import com.android.installreferrer.api.InstallReferrerStateListener
 import com.blankj.utilcode.util.ActivityUtils
 import com.demo.orangeapplock.R
 import com.demo.orangeapplock.admob.AdType
 import com.demo.orangeapplock.admob.LoadAdManager
 import com.demo.orangeapplock.admob.ShowOpenAdManager
+import com.demo.orangeapplock.appLockApp
 import com.demo.orangeapplock.base.BaseUI
+import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseUI() {
@@ -22,6 +26,7 @@ class MainActivity : BaseUI() {
     override fun layoutId(): Int = R.layout.activity_main
 
     override fun initView(){
+        readReferrer()
         preLoadAd()
         startAnimator()
     }
@@ -96,4 +101,30 @@ class MainActivity : BaseUI() {
         return false
     }
 
+    private fun readReferrer(){
+        val decodeString = MMKV.defaultMMKV().decodeString("referrer", "")?:""
+        if(decodeString.isEmpty()){
+            val referrerClient = InstallReferrerClient.newBuilder(appLockApp).build()
+            referrerClient.startConnection(object : InstallReferrerStateListener {
+                override fun onInstallReferrerSetupFinished(responseCode: Int) {
+                    try {
+                        referrerClient.endConnection()
+                        when (responseCode) {
+                            InstallReferrerClient.InstallReferrerResponse.OK -> {
+                                val installReferrer = referrerClient.installReferrer.installReferrer
+                                MMKV.defaultMMKV().encode("referrer",installReferrer)
+                            }
+                            else->{
+
+                            }
+                        }
+                    } catch (e: Exception) {
+
+                    }
+                }
+                override fun onInstallReferrerServiceDisconnected() {
+                }
+            })
+        }
+    }
 }

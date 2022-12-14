@@ -4,7 +4,6 @@ import com.demo.orangeapplock.bean.ServerInfoBean
 import com.demo.orangeapplock.local.LocalManager
 import com.demo.orangeapplock.online.FireManager
 import com.github.shadowsocks.bg.BaseService
-import com.github.shadowsocks.database.Profile
 import com.github.shadowsocks.database.ProfileManager
 
 object ServerManager {
@@ -18,7 +17,7 @@ object ServerManager {
         if (FireManager.appLockCityList.isNullOrEmpty()){
             return serverList.random()
         }else{
-            val filter = serverList.filter { FireManager.appLockCityList.contains(it.city) }
+            val filter = serverList.filter { FireManager.appLockCityList.contains(it.bandar) }
             if (!filter.isNullOrEmpty()){
                 return filter.random()
             }
@@ -26,7 +25,7 @@ object ServerManager {
         return serverList.random()
     }
 
-    fun isSmartServer(serverInfoBean: ServerInfoBean)=serverInfoBean.country=="Smart Servers"&&serverInfoBean.host.isEmpty()
+    fun isSmartServer(serverInfoBean: ServerInfoBean)=serverInfoBean.negara=="Smart Servers"&&serverInfoBean.ip.isEmpty()
 
     fun createOrUpdateProfile(list:ArrayList<ServerInfoBean>){
         for (serverInfoBean in list) {
@@ -36,7 +35,7 @@ object ServerManager {
 
     fun getServerId(serverInfoBean: ServerInfoBean):Long{
         ProfileManager.getActiveProfiles()?.forEach {
-            if (it.host==serverInfoBean.host&&it.remotePort==serverInfoBean.port){
+            if (it.host==serverInfoBean.ip&&it.remotePort==serverInfoBean.port){
                 return it.id
             }
         }

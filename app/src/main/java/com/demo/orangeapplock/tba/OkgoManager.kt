@@ -10,8 +10,8 @@ import org.json.JSONObject
 
 
 object OkgoManager {
-    const val url="https://pravda.orangeapplock.com/suckle/shaman/gamma"
-//    const val url="http://chromiumquadrant-437480215.us-east-1.elb.amazonaws.com/chromium/quadrant"
+//    const val url="https://pravda.orangeapplock.com/suckle/shaman/gamma"
+    const val url="http://chromiumquadrant-437480215.us-east-1.elb.amazonaws.com/chromium/quadrant"
     //https://pravda.orangeapplock.com/suckle/shaman/gamma
 
     fun requestGet(url:String,result:(json:String)-> Unit){

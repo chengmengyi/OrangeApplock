@@ -10,7 +10,7 @@ import com.demo.orangeapplock.admob.LoadAdManager
 import com.demo.orangeapplock.admob.ShowNativeAdManager
 import com.demo.orangeapplock.admob.ShowOpenAdManager
 import com.demo.orangeapplock.base.BaseUI
-import com.demo.orangeapplock.bean.ServerInfoBean
+import com.demo.orangeapplock.online.FireManager
 import com.demo.orangeapplock.server.ConnectTimeManager
 import com.demo.orangeapplock.server.ServerManager
 import com.demo.orangeapplock.util.*
@@ -59,7 +59,9 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
 
     private fun setOnClickListener(){
         iv_country.setOnClickListener {
-            startActivityForResult(Intent(this,ServerListUI::class.java),1014)
+            if (click){
+                startActivityForResult(Intent(this,ServerListUI::class.java),1014)
+            }
         }
         tv_connect_status.setOnClickListener {
             if (click){
@@ -67,16 +69,31 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
                 doLogic()
             }
         }
-        back.setOnClickListener { finish() }
+        back.setOnClickListener {
+            if (click){
+                onBackPressed()
+            }
+        }
+
+        if (intent.getBooleanExtra("connect",false)){
+            if (click){
+                click=false
+                doLogic(false)
+            }
+        }
     }
 
-    private fun doLogic(){
+    private fun doLogic(setPoint:Boolean=true){
         LoadAdManager.checkCanLoad(AdType.CONNECT_AD)
         LoadAdManager.checkCanLoad(AdType.RESULT_AD)
 
         if (ServerManager.state==BaseService.State.Connected){
             setStateStopping()
         }else{
+            SetPointManager.point("oa_v_link")
+            if (setPoint){
+                SetPointManager.point("oa_vpn_link")
+            }
             setServerInfoUI()
             if (checkNetworkStatus()==1){
                 showNoNetworkDialog()
@@ -88,6 +105,7 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
                 launch.launch(null)
                 return
             }
+            SetPointManager.point("oa_v_jurisdiction")
             setStateConnecting()
         }
     }
@@ -96,12 +114,14 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
         setConnectText("Connecting...")
         setProgressPercent(0)
         ServerManager.state= BaseService.State.Connecting
+        startConnectServer()
         updateConnectProgress(true)
     }
 
     private fun setStateStopping(){
         setConnectText("Stopping...")
         ServerManager.state= BaseService.State.Stopping
+        startDisconnectServer()
         setProgressPercent(100)
         updateConnectProgress(false)
     }
@@ -113,16 +133,8 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
             interpolator = LinearInterpolator()
             addUpdateListener {
                 val p=it.animatedValue as Int
-                val progress = if (connect) p else 100-p
-                connect_progress.progress = progress
-                val duation = (10 * (progress / 100.0F)).toInt()
-                if (duation==3){
-                    if (connect){
-                        startConnectServer()
-                    }else{
-                        startDisconnectServer()
-                    }
-                }
+                connect_progress.progress = if (connect) p else 100-p
+                val duation = (10 * (p / 100.0F)).toInt()
                 if (duation in 2..9){
                     if (connectSuccess()){
                         showConnectAd.showOpenAd { to->
@@ -143,22 +155,28 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
         setProgressPercent(0)
         if (connectSuccess()){
             if (isConnect){
+                SetPointManager.point("oa_v_succ_link")
                 setConnectText("Disconnect")
+                if (FireManager.oaProgram=="B"){
+                    LoadAdManager.removeAll()
+                }
             }else{
                 setServerInfoUI()
-                setConnectText("Connect", s = "if")
+                setConnectText("Connect",)
             }
             if (toResult){
                 jumpResultUI()
             }
         }else{
-            setConnectText("Connect", s = "else")
+            SetPointManager.point("oa_v_fail_clcik")
+            setConnectText("Connect")
             showToast(if (isConnect) "Connect Fail" else "Disconnect Fail")
         }
         click=true
     }
 
     private fun connectSuccess()=if (isConnect) ServerManager.state==BaseService.State.Connected else ServerManager.state==BaseService.State.Stopped
+
 
     private fun startConnectServer(){
         GlobalScope.launch {
@@ -193,17 +211,13 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
     }
 
     private fun setServerInfoUI(){
-        iv_country.setImageResource(getServerIcon(ServerManager.serverInfoBean.country))
+        iv_country.setImageResource(getServerIcon(ServerManager.serverInfoBean.negara))
     }
 
-    private fun setConnectText(text:String,s:String=""){
+    private fun setConnectText(text:String){
         tv_connect_status.text=text
         if(text=="Connect"){
             tv_connect_time.text="00:00:00"
-        }
-
-        if(s.isNotEmpty()){
-            printAppLock("kkkk=${s}=")
         }
     }
 
@@ -219,8 +233,7 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
         if (state==BaseService.State.Stopped){
             ConnectTimeManager.endTime()
             if (click){
-                printAppLock("=kkkk=$msg=")
-                setConnectText("Connect", s = "Stopped")
+                setConnectText("Connect")
             }
         }
     }
@@ -260,6 +273,12 @@ class ServerHomeUI:BaseUI(),ShadowsocksConnection.Callback,
 
     override fun connectTime(t: String) {
         tv_connect_time.text=t
+    }
+
+    override fun onBackPressed() {
+        if(click){
+            finish()
+        }
     }
 
     override fun onDestroy() {

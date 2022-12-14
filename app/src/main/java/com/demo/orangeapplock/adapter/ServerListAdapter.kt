@@ -36,11 +36,11 @@ class ServerListAdapter(
     override fun onBindViewHolder(holder: ServerListView, position: Int) {
         with(holder.itemView){
             val serverInfoBean = list[position]
-            tv_server_country.text=serverInfoBean.country
-            val selected = ServerManager.serverInfoBean.host == serverInfoBean.host
+            tv_server_country.text=serverInfoBean.negara
+            val selected = ServerManager.serverInfoBean.ip == serverInfoBean.ip
             item_layout.isSelected=selected
             tv_server_country.isSelected=selected
-            iv_server_icon.setImageResource(getServerIcon(serverInfoBean.country))
+            iv_server_icon.setImageResource(getServerIcon(serverInfoBean.negara))
         }
     }
 

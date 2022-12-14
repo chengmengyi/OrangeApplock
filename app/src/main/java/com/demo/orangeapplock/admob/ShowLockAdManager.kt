@@ -27,6 +27,7 @@ class ShowLockAdManager(
             return
         }
         if (null==adByType||AdShowClickManager.checkLimit()){
+            LoadAdManager.checkCanLoad(type)
             showResult.invoke()
         }else{
             if (null!=adByType){
@@ -43,6 +44,8 @@ class ShowLockAdManager(
                         }
                     }
                 }
+            }else{
+                LoadAdManager.checkCanLoad(type)
             }
         }
     }

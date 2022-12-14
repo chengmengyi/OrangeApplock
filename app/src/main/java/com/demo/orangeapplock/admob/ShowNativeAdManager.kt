@@ -12,6 +12,7 @@ import com.demo.orangeapplock.R
 import com.demo.orangeapplock.base.BaseUI
 import com.demo.orangeapplock.online.FireManager
 import com.demo.orangeapplock.util.ActivityCallback
+import com.demo.orangeapplock.util.printAppLock
 import com.demo.orangeapplock.util.show
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
@@ -49,6 +50,7 @@ class ShowNativeAdManager(
     }
 
     private fun showNativeAd(adRes:NativeAd){
+        printAppLock("start show ad $type")
         val nativeView = baseUI.findViewById<NativeAdView>(R.id.native_view)
         nativeView.iconView=baseUI.findViewById(R.id.native_logo)
         (nativeView.iconView as ImageFilterView).setImageDrawable(adRes.icon?.drawable)
@@ -58,9 +60,9 @@ class ShowNativeAdManager(
 
         if(type!=AdType.APP_LOCK_HOME_AD){
             nativeView.mediaView=baseUI.findViewById(R.id.native_cover)
-            if (null!=adRes.mediaContent){
+            adRes.mediaContent?.let {
                 nativeView.mediaView?.apply {
-                    setMediaContent(adRes.mediaContent)
+                    setMediaContent(it)
                     setImageScaleType(ImageView.ScaleType.CENTER_CROP)
                     outlineProvider = appLockProvider
                 }

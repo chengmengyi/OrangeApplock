@@ -15,20 +15,20 @@ object LocalManager {
 
     val appLockLocalServerList= arrayListOf(
         ServerInfoBean(
-            host = "100.223.52.0",
-            pwd = "123456",
-            country = "Japan",
-            city = "Tokyo",
+            ip = "100.223.52.0",
+            katalaluan = "123456",
+            negara = "Japan",
+            bandar = "Tokyo",
             port = 100,
-            method = "chacha20-ietf-poly1305"
+            nombor_akaun = "chacha20-ietf-poly1305"
         ),
         ServerInfoBean(
-            host = "100.223.52.78",
-            pwd = "123456",
-            country = "UnitedStates",
-            city = "Tokyo",
+            ip = "100.223.52.78",
+            katalaluan = "123456",
+            negara = "UnitedStates",
+            bandar = "Tokyo",
             port = 100,
-            method = "chacha20-ietf-poly1305"
+            nombor_akaun = "chacha20-ietf-poly1305"
         )
     )
 

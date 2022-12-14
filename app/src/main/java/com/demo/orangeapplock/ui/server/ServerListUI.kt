@@ -35,7 +35,7 @@ class ServerListUI:BaseUI(){
     private fun chooseServer(serverInfoBean: ServerInfoBean){
         val current = ServerManager.serverInfoBean
         val connected = ServerManager.state == BaseService.State.Connected
-        if(connected&&current.host==serverInfoBean.host){
+        if(connected&&current.ip!=serverInfoBean.ip){
             AlertDialog.Builder(this).apply {
                 setMessage("You are currently connected and need to disconnect before manually connecting to the server.")
                 setPositiveButton("sure") { _, _ ->

@@ -4,22 +4,22 @@ import com.github.shadowsocks.database.Profile
 import com.github.shadowsocks.database.ProfileManager
 
 class ServerInfoBean(
-    val method:String="",
-    val pwd:String="",
-    val host:String="",
-    val country:String="Smart Servers",
+    val nombor_akaun:String="",
+    val katalaluan:String="",
+    val ip:String="",
+    val negara:String="Smart Servers",
     val port:Int=0,
-    val city:String=""
+    val bandar:String=""
 ){
     
     fun createProfile(){
         val profile = Profile(
             id = 0L,
-            name = "${country} - ${city}",
-            host = host,
+            name = "${negara} - ${bandar}",
+            host = ip,
             remotePort = port,
-            password = pwd,
-            method = method
+            password = katalaluan,
+            method = nombor_akaun
         )
 
         var id: Long? = null

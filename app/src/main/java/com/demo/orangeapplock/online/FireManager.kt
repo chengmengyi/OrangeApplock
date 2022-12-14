@@ -4,12 +4,16 @@ import com.demo.orangeapplock.admob.AdShowClickManager
 import com.demo.orangeapplock.bean.ServerInfoBean
 import com.demo.orangeapplock.local.LocalManager
 import com.demo.orangeapplock.server.ServerManager
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.tencent.mmkv.MMKV
 import org.json.JSONObject
 
 object FireManager {
+    var oaType="1"
+    var oaShow="0"
+    var oaProgram=""
     val appLockCityList= arrayListOf<String>()
     val appLockServerList= arrayListOf<ServerInfoBean>()
 
@@ -24,6 +28,19 @@ object FireManager {
 //                readAdConfig(remoteConfig.getString("appLock_ad"))
 //                readServerConfig(remoteConfig.getString("appLock_server"))
 //                writeRao(remoteConfig.getString("appLock_rao"))
+//                val oa_type = remoteConfig.getString("oa_type")
+//                if(oa_type.isNotEmpty()){
+//                    oaType=oa_type
+//                }
+//                val oa_show = remoteConfig.getString("oa_show")
+//                if(oa_show.isNotEmpty()){
+//                    oaShow=oa_show
+//                }
+//
+//                val oa_program = remoteConfig.getString("oa_program")
+//                if(oa_program.isNotEmpty()){
+//                    oaProgram=oa_program
+//                }
 //            }
 //        }
     }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.blankj.utilcode.util.ActivityUtils
 import com.demo.orangeapplock.admob.AdShowClickManager
 import com.demo.orangeapplock.ui.HomeUI
@@ -20,6 +21,9 @@ object ActivityCallback {
     var loadHomeAd=true
     private var reload=false
     private var job: Job?=null
+    //0冷启动1热启动2启动后
+    var loadType=0
+    var topIsHome=true
 
 
     fun register(application: Application){
@@ -37,6 +41,7 @@ object ActivityCallback {
             if (pages==1){
                 appFront=true
                 if (reload){
+                    loadType=1
                     AdShowClickManager.readLocalShowClickNum()
                     if (ActivityUtils.isActivityExistsInStack(HomeUI::class.java)){
                         activity.startActivity(Intent(activity, MainActivity::class.java))
@@ -58,6 +63,11 @@ object ActivityCallback {
                 job= GlobalScope.launch {
                     delay(3000L)
                     reload=true
+                    try {
+                        topIsHome=ActivityUtils.getTopActivity().javaClass.name==HomeUI::class.java.name
+                    }catch (e:Exception){
+
+                    }
                     ActivityUtils.finishActivity(MainActivity::class.java)
                     ActivityUtils.finishActivity(AdActivity::class.java)
                 }

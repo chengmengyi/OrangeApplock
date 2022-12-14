@@ -16,6 +16,7 @@ import com.google.android.gms.ads.nativead.NativeAdOptions
 import org.json.JSONObject
 
 object LoadAdManager {
+
     private val appLockAdRes= hashMapOf<String,AdmobBean>()
     private val appLockLoading= arrayListOf<String>()
 
@@ -69,6 +70,9 @@ object LoadAdManager {
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
                 object : AppOpenAd.AppOpenAdLoadCallback(){
                     override fun onAdLoaded(p0: AppOpenAd) {
+                        p0.setOnPaidEventListener {
+
+                        }
                         loadResult.invoke(AdmobBean(System.currentTimeMillis(),p0))
                     }
 
@@ -77,6 +81,8 @@ object LoadAdManager {
                         printAppLock("load $type fail,${p0.message}")
                         loadResult.invoke(null)
                     }
+
+
                 }
             )
         }
@@ -92,6 +98,7 @@ object LoadAdManager {
                     }
 
                     override fun onAdLoaded(p0: InterstitialAd) {
+
                         loadResult.invoke(AdmobBean(System.currentTimeMillis(),p0))
                     }
                 }
@@ -128,6 +135,9 @@ object LoadAdManager {
         }
 
     }
+
+
+    //ip 连了vpn 用vpn ip 没连 掉接口拿
 
     private fun hasLoading(type: String):Boolean{
         if(appLockLoading.contains(type)){
@@ -178,4 +188,16 @@ object LoadAdManager {
     }
 
     fun getAdByType(type: String)= appLockAdRes[type]?.ad
+
+    fun removeAll(){
+        appLockAdRes.clear()
+        appLockLoading.clear()
+        checkCanLoad(AdType.OPEN_AD)
+        checkCanLoad(AdType.HOME_AD)
+        checkCanLoad(AdType.APP_LOCK_HOME_AD)
+        checkCanLoad(AdType.LOCK_AD)
+        checkCanLoad(AdType.CONNECT_AD)
+        checkCanLoad(AdType.RESULT_AD)
+        checkCanLoad(AdType.SERVER_HOME_AD)
+    }
 }

@@ -33,6 +33,12 @@ fun View.show(show:Boolean){
     visibility=if (show) View.VISIBLE else View.GONE
 }
 
+fun isBuyUser(referrer:String)=referrer.contains("fb4a")||
+        referrer.contains("gclid")||
+        referrer.contains("not%20set")||
+        referrer.contains("youtubeads")||
+        referrer.contains("%7B%22")
+
 fun processName(applicationContext: Application): String {
     val pid = android.os.Process.myPid()
     var processName = ""
