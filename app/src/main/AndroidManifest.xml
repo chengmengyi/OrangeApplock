@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.demo.orangeapplock">
+    package="com.orangeapplock.pro">
 
     <uses-permission android:name="android.permission.REAL_GET_TASKS"
         tools:ignore="ProtectedPermissions" />
@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".MyApp"
+        android:name="com.orangeapplock.pro.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OrangeApplock">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.orangeapplock.pro.ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,30 +35,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.server.ServerHomeUI"
+        <activity android:name="com.orangeapplock.pro.ui.server.ServerHomeUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.server.ServerListUI"
+        <activity android:name="com.orangeapplock.pro.ui.server.ServerListUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.server.ResultUI"
+        <activity android:name="com.orangeapplock.pro.ui.server.ResultUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.HomeUI"
+        <activity android:name="com.orangeapplock.pro.ui.HomeUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.applock.EnterPwdUI"
+        <activity android:name="com.orangeapplock.pro.ui.applock.EnterPwdUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.applock.AppLockHomeUI"
+        <activity android:name="com.orangeapplock.pro.ui.applock.AppLockHomeUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SetUI"
+        <activity android:name="com.orangeapplock.pro.ui.SetUI"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.PolicyUI"
+        <activity android:name="com.orangeapplock.pro.ui.PolicyUI"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".service.AppLockServers"
+        <service android:name="com.orangeapplock.pro.service.AppLockServers"
             android:exported="true">
         </service>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_id" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

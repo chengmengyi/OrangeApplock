@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "738212315075",
+    "project_id": "orange-applock",
+    "storage_bucket": "orange-applock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738212315075:android:5cbc0cb31b2d6ec8e58776",
+        "android_client_info": {
+          "package_name": "com.orangeapplock.pro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738212315075-7l7k134ocdlrn35e5d3dv4k7cq89e1an.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF7D83-oeQ2v1NGKL0-oiCraruSii0aeQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738212315075-7l7k134ocdlrn35e5d3dv4k7cq89e1an.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
