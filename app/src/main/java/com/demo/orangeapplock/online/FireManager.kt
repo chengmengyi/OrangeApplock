@@ -21,42 +21,45 @@ object FireManager {
         writeRao(LocalManager.appLockLocalRao)
         ServerManager.createOrUpdateProfile(LocalManager.appLockLocalServerList)
 
-//        val remoteConfig = Firebase.remoteConfig
-//        remoteConfig.fetchAndActivate().addOnCompleteListener {
-//            if (it.isSuccessful){
-//                readCityConfig(remoteConfig.getString("appLock_city"))
-//                readAdConfig(remoteConfig.getString("appLock_ad"))
-//                readServerConfig(remoteConfig.getString("appLock_server"))
-//                writeRao(remoteConfig.getString("appLock_rao"))
-//                val oa_type = remoteConfig.getString("oa_type")
-//                if(oa_type.isNotEmpty()){
-//                    oaType=oa_type
-//                }
-//                val oa_show = remoteConfig.getString("oa_show")
-//                if(oa_show.isNotEmpty()){
-//                    oaShow=oa_show
-//                }
-//
-//                val oa_program = remoteConfig.getString("oa_program")
-//                if(oa_program.isNotEmpty()){
-//                    oaProgram=oa_program
-//                }
-//            }
-//        }
+        val remoteConfig = Firebase.remoteConfig
+        remoteConfig.fetchAndActivate().addOnCompleteListener {
+            if (it.isSuccessful){
+                readCityConfig(remoteConfig.getString("appLock_city"))
+                readAdConfig(remoteConfig.getString("appLock_ad"))
+                val appLock_ad_test = remoteConfig.getString("appLock_ad_test")
+                if (appLock_ad_test.isNotEmpty()){
+                    readAdConfig(appLock_ad_test)
+                }
+                readServerConfig(remoteConfig.getString("oa_pelayan"))
+                val oa_type = remoteConfig.getString("oa_type")
+                if(oa_type.isNotEmpty()){
+                    oaType=oa_type
+                }
+                val oa_show = remoteConfig.getString("oa_show")
+                if(oa_show.isNotEmpty()){
+                    oaShow=oa_show
+                }
+
+                val oa_program = remoteConfig.getString("oa_program")
+                if(oa_program.isNotEmpty()){
+                    oaProgram=oa_program
+                }
+            }
+        }
     }
     
     private fun readServerConfig(json:String){
         try {
-            val jsonArray = JSONObject(json).getJSONArray("appLock_server")
+            val jsonArray = JSONObject(json).getJSONArray("oa_pelayan")
             for (index in 0 until jsonArray.length()){
                 val json0914Object = jsonArray.getJSONObject(index)
                 val serverInfoBean = ServerInfoBean(
-                    json0914Object.optString("method"),
-                    json0914Object.optString("pwd"),
-                    json0914Object.optString("host"),
-                    json0914Object.optString("country"),
+                    json0914Object.optString("nombor_akaun"),
+                    json0914Object.optString("katalaluan"),
+                    json0914Object.optString("ip"),
+                    json0914Object.optString("negara"),
                     json0914Object.optInt("port"),
-                    json0914Object.optString("city"),
+                    json0914Object.optString("bandar"),
                 )
                 appLockServerList.add(serverInfoBean)
             }
